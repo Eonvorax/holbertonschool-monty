@@ -87,9 +87,9 @@ void push(stack_t **top, unsigned int line_number)
  * @top: pointer to top element of the stack
  * @line_number: given lin number of the instruction
  *
- * Return: nothing
+ * Return: 0 on success, -1 on failure
  */
-void get_opcode(stack_t **top, unsigned int line_number)
+int get_opcode(stack_t **top, unsigned int line_number)
 {
 	unsigned int i = 0;
 	char *token = NULL;
@@ -104,18 +104,16 @@ void get_opcode(stack_t **top, unsigned int line_number)
 	{
 		token = strtok(buffer, " \t");
 		if (token == NULL)
-			return;
+			return (0);
 		if (strcmp(token, opcodes[i].opcode) == 0)
 		{
 			opcodes[i].f(top, i + 1);
-			return;
+			return (0);
 		}
 		i++;
 	}
 	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, token);
-	free_stack(top);
-	free(buffer);
-	exit(EXIT_FAILURE);
+	return (-1);
 }
 
 /**
@@ -146,7 +144,13 @@ int main(int argc, char *argv[])
 	while (getline(&buffer, &max_line_len, fp) != EOF)
 	{
 		line_number++;
-		get_opcode(&top, line_number);
+		if (get_opcode(&top, line_number) == -1)
+		{
+			free_stack(&top);
+			free(buffer);
+			fclose(fp);
+			exit(EXIT_FAILURE);
+		}
 	}
 	free(buffer);
 	fclose(fp);
