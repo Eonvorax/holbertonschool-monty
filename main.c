@@ -65,7 +65,7 @@ void push(stack_t **top, unsigned int line_number)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	line = strtok(NULL, " ");
+	line = strtok(NULL, " \t");
 	if (isdigit(*line) == 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
