@@ -85,10 +85,11 @@ void push(stack_t **top, unsigned int line_number)
 /**
  * get_opcode - find an opcode match for the given line
  * @top: pointer to top element of the stack
+ * @line_number: given lin number of the instruction
  *
  * Return: nothing
  */
-void get_opcode(stack_t **top)
+void get_opcode(stack_t **top, unsigned int line_number)
 {
 	unsigned int i = 0;
 	char *token = NULL;
@@ -101,7 +102,9 @@ void get_opcode(stack_t **top)
 	buffer[strlen(buffer) - 1] = '\0';
 	while (opcodes[i].opcode != NULL)
 	{
-		token = strtok(buffer, " ");
+		token = strtok(buffer, " \t");
+		if (token == NULL)
+			return;
 		if (strcmp(token, opcodes[i].opcode) == 0)
 		{
 			opcodes[i].f(top, i + 1);
@@ -109,6 +112,10 @@ void get_opcode(stack_t **top)
 		}
 		i++;
 	}
+	fprintf(stderr, "L%d: unknown instruction %s\n", line_number, token);
+	free_stack(top);
+	free(buffer);
+	exit(EXIT_FAILURE);
 }
 
 /**
@@ -123,21 +130,23 @@ int main(int argc, char *argv[])
 	FILE *fp;
 	size_t max_line_len = 4096;
 	stack_t *top = NULL;
+	unsigned int line_number = 0;
 
 	if (argc != 2)
 	{
-		perror("USAGE: monty file\n");
+		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	fp = fopen(argv[1], "r");
 	if (fp == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s", argv[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 	while (getline(&buffer, &max_line_len, fp) != EOF)
 	{
-		get_opcode(&top);
+		line_number++;
+		get_opcode(&top, line_number);
 	}
 	free(buffer);
 	fclose(fp);
