@@ -1,7 +1,5 @@
 #include "monty.h"
 
-char *buffer = NULL;
-
 /**
  * free_stack - frees each element of the stack
  * @top: pointer to top element of the stack
