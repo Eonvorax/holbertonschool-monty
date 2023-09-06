@@ -41,5 +41,6 @@ typedef struct instruction_s
 
 void pint(stack_t **top, unsigned int line_number);
 void pop(stack_t **top, unsigned int line_number);
+void add(stack_t **top, unsigned int line_number);
 
 #endif

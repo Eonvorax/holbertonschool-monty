@@ -97,6 +97,7 @@ int get_opcode(stack_t **top, unsigned int line_number)
 		{"pall", pall},
 		{"pint", pint},
 		{"pop", pop},
+		{"add", add},
 		{NULL, NULL}
 		};
 
