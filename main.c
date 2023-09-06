@@ -54,24 +54,23 @@ void push(stack_t **top, unsigned int line_number)
 	char *line = NULL;
 	int data;
 
-	if (top == NULL)
+	line = strtok(NULL, " \t");
+	if (top == NULL || isdigit(*line) == 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		free_stack(top);
+		free(buffer);
 		exit(EXIT_FAILURE);
 	}
+	data = atoi(line);
 	node = malloc(sizeof(stack_t) * 1);
 	if (node == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		free_stack(top);
+		free(buffer);
 		exit(EXIT_FAILURE);
 	}
-	line = strtok(NULL, " \t");
-	if (isdigit(*line) == 0)
-	{
-		fprintf(stderr, "L%d: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-	data = atoi(line);
 	node->n = data;
 	node->next = NULL;
 	node->prev = *top;
