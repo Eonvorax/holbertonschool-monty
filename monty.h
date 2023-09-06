@@ -40,4 +40,6 @@ typedef struct instruction_s
 } instruction_t;
 
 void pint(stack_t **top, unsigned int line_number);
+void pop(stack_t **top, unsigned int line_number);
+
 #endif
