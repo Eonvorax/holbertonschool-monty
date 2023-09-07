@@ -109,7 +109,7 @@ int get_opcode(stack_t **top, unsigned int line_number)
 			return (0);
 		if (strcmp(token, opcodes[i].opcode) == 0)
 		{
-			opcodes[i].f(top, i + 1);
+			opcodes[i].f(top, line_number);
 			return (0);
 		}
 		i++;
