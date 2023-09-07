@@ -55,7 +55,7 @@ void push(stack_t **top, unsigned int line_number)
 	int data;
 
 	line = strtok(NULL, " \t");
-	if (top == NULL || isdigit(*line) == 0)
+	if (top == NULL || line == NULL || isdigit(*line) == 0)
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", line_number);
 		free_stack(top);
