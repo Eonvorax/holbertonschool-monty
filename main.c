@@ -111,7 +111,7 @@ int get_opcode(stack_t **top, unsigned int line_number)
 	while (opcodes[i].opcode != NULL)
 	{
 		token = strtok(buffer, " \t");
-		if (token == NULL)
+		if (token == NULL || token[0] == '#')
 			return (0);
 		if (strcmp(token, opcodes[i].opcode) == 0)
 		{
