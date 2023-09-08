@@ -107,6 +107,7 @@ int get_opcode(stack_t **top, unsigned int line_number)
 		{"pchar", pchar},
 		{"pstr", pstr},
 		{"rotl", rotl},
+		{"rotr", rotr},
 		{NULL, NULL}
 		};
 
