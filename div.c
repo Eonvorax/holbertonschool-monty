@@ -11,7 +11,7 @@ void _div(stack_t **top, unsigned int line_number)
 {
 	if (*top == NULL || (*top)->prev == NULL)
 	{
-		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
+		fprintf(stderr, "L%d: can't div, stack too short\n", line_number);
 		free(buffer);
 		exit(EXIT_FAILURE);
 	}
