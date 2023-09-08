@@ -102,6 +102,7 @@ int get_opcode(stack_t **top, unsigned int line_number)
 		{"nop", nop},
 		{"sub", sub},
 		{"div", _div},
+		{"mul", mul},
 		{NULL, NULL}
 		};
 
