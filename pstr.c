@@ -29,7 +29,8 @@ void pstr(stack_t **top, unsigned int line_number)
 	node = *top;
 	while (node != NULL && node->n > 0 && node->n < 128)
 	{
-		printf("%c\n", node->n);
+		printf("%c", node->n);
 		node = node->prev;
 	}
+	printf("\n");
 }
